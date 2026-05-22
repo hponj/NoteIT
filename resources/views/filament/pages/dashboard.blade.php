@@ -491,7 +491,7 @@
             @else
                 <div class="mood-notes-grid">
                     @foreach ($latestNotes as $note)
-                        <a href="/dashboard/notes/{{ $note->id }}/edit" class="note-card">
+                        <a href="/dashboard/notes/{{ $note->id }}" class="note-card">
                         <article class="mood-note">
                             <div class="mood-note-pin"></div>
                             <h4 class="mood-note-title">{{ $note->judul }}</h4>

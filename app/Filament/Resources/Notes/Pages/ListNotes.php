@@ -13,8 +13,7 @@ class ListNotes extends ListRecords
     protected function getHeaderActions(): array
     {
         return [
-            CreateAction::make()
-                ->label('Buat Note'),
+            CreateAction::make(),
         ];
     }
 }

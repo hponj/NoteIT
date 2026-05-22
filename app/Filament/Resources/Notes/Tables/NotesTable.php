@@ -3,9 +3,9 @@
 namespace App\Filament\Resources\Notes\Tables;
 
 use Filament\Actions\BulkActionGroup;
-use Filament\Actions\DeleteAction;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
+use Filament\Actions\ViewAction;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 
@@ -15,39 +15,32 @@ class NotesTable
     {
         return $table
             ->columns([
-                TextColumn::make('judul')
-                    ->label('Judul')
-                    ->searchable()
-                    ->sortable()
-                    ->limit(36),
-                TextColumn::make('keterangan')
-                    ->label('Keterangan')
-                    ->searchable()
-                    ->limit(48),
                 TextColumn::make('user.name')
-                    ->label('Pemilik')
-                    ->searchable()
-                    ->sortable()
-                    ->visible(fn (): bool => auth()->user()?->isAdmin() ?? false),
+                    ->searchable(),
+                TextColumn::make('judul')
+                    ->searchable(),
+                TextColumn::make('keterangan')
+                    ->searchable(),
                 TextColumn::make('created_at')
-                    ->label('Dibuat')
-                    ->dateTime('d M Y H:i')
-                    ->sortable(),
+                    ->dateTime()
+                    ->sortable()
+                    ->toggleable(isToggledHiddenByDefault: true),
                 TextColumn::make('updated_at')
-                    ->label('Diubah')
-                    ->since()
-                    ->sortable(),
+                    ->dateTime()
+                    ->sortable()
+                    ->toggleable(isToggledHiddenByDefault: true),
             ])
-            ->filters([])
+            ->filters([
+                //
+            ])
             ->recordActions([
+                ViewAction::make(),
                 EditAction::make(),
-                DeleteAction::make(),
             ])
             ->toolbarActions([
                 BulkActionGroup::make([
                     DeleteBulkAction::make(),
                 ]),
-            ])
-            ->defaultSort('created_at', 'desc');
+            ]);
     }
 }
