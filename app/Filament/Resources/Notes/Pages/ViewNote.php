@@ -10,6 +10,8 @@ class ViewNote extends ViewRecord
 {
     protected static string $resource = NoteResource::class;
 
+    protected string $view = 'filament.pages.resources.notes.pages.view-note';
+
     protected function getHeaderActions(): array
     {
         return [
