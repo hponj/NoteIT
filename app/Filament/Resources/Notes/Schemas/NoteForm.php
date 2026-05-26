@@ -15,7 +15,8 @@ class NoteForm
             ->components([
                 Select::make('user_id')
                     ->relationship('user', 'name')
-                    ->required(),
+                    ->required()
+                    ->visible(auth()->user()->role === 'super_admin'),
                 TextInput::make('judul')
                     ->required(),
                 TextInput::make('keterangan')

@@ -15,6 +15,8 @@ use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
 use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Table;
+use Illuminate\Database\Eloquent\Builder;
+use Override;
 
 class NoteResource extends Resource
 {
@@ -44,6 +46,18 @@ class NoteResource extends Resource
         return [
             //
         ];
+    }
+    
+    #[Override]
+    public static function getEloquentQuery(): Builder
+    {
+            $query = parent::getEloquentQuery();
+
+    if (auth()->user()->role !== 'admin') {
+        $query->where('user_id', auth()->id());
+    }
+
+    return $query;
     }
 
     public static function getPages(): array
